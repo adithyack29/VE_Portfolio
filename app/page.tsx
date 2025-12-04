@@ -32,7 +32,7 @@ const projects = [
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function HomePage(): JSX.Element {
+export default function HomePage() {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const showreelRef = useRef<HTMLDivElement | null>(null);
   const workSectionRef = useRef<HTMLElement | null>(null);

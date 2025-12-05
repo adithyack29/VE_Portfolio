@@ -30,12 +30,23 @@ const projects = [
   }
 ];
 
+const clients = [
+  { name: "Brand A", category: "Fashion" },
+  { name: "Studio B", category: "Music" },
+  { name: "Agency C", category: "Commercial" },
+  { name: "Artist D", category: "Independent" },
+  { name: "Company E", category: "Corporate" },
+  { name: "Label F", category: "Entertainment" }
+];
+
 gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement | null>(null);
   const showreelRef = useRef<HTMLDivElement | null>(null);
   const workSectionRef = useRef<HTMLElement | null>(null);
+  const clientsSectionRef = useRef<HTMLElement | null>(null);
+  const clientsGridRef = useRef<HTMLDivElement | null>(null);
   const aboutSectionRef = useRef<HTMLElement | null>(null);
   const contactSectionRef = useRef<HTMLElement | null>(null);
   const projectCardsRef = useRef<HTMLDivElement | null>(null);
@@ -73,6 +84,7 @@ export default function HomePage() {
       // Sections subtle fade/slide
       const sections: (HTMLElement | null)[] = [
         workSectionRef.current,
+        clientsSectionRef.current,
         aboutSectionRef.current,
         contactSectionRef.current
       ];
@@ -104,6 +116,22 @@ export default function HomePage() {
           scrollTrigger: {
             trigger: projectCardsRef.current,
             start: "top 80%"
+          }
+        });
+      }
+
+      // Client cards stagger on scroll
+      if (clientsGridRef.current) {
+        const clientCards = clientsGridRef.current.querySelectorAll("[data-client-card]");
+        gsap.from(clientCards, {
+          opacity: 0,
+          y: 30,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: clientsGridRef.current,
+            start: "top 85%"
           }
         });
       }
@@ -290,6 +318,49 @@ export default function HomePage() {
                 </div>
               </div>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id="clients"
+        ref={clientsSectionRef}
+        className="section-max space-y-6 pb-16 pt-4 md:pb-20"
+      >
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+              Worked with
+            </p>
+            <h2 className="mt-2 text-xl md:text-2xl font-semibold text-slate-50">
+              Trusted by brands & creators
+            </h2>
+          </div>
+          <p className="max-w-xs text-xs text-slate-400">
+            Collaborating with studios, agencies, artists and independent creators
+            to bring their vision to life.
+          </p>
+        </div>
+
+        <div
+          ref={clientsGridRef}
+          className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6"
+        >
+          {clients.map((client, index) => (
+            <div
+              key={`${client.name}-${index}`}
+              data-client-card
+              className="group glass-panel flex flex-col items-center justify-center rounded-2xl border border-white/5 p-6 transition-all hover:border-accent/30 hover:bg-accent-soft/5"
+            >
+              <div className="flex h-12 w-full items-center justify-center">
+                <span className="text-lg font-semibold text-slate-300 group-hover:text-accent transition-colors">
+                  {client.name}
+                </span>
+              </div>
+              <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                {client.category}
+              </p>
+            </div>
           ))}
         </div>
       </section>

@@ -129,7 +129,7 @@ export default function HomePage() {
           </div>
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-              Video Editor
+              Adithya's
             </p>
             <p className="text-sm text-slate-300">
               Portfolio
